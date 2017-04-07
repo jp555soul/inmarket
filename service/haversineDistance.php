@@ -1,12 +1,86 @@
 <?php 
 
-$list_of_cities = explode("\n", file_get_contents('data/US.txt'));
-
-echo "<pre>";
-print_r($list_of_cities);
-echo "</pre>";
-
 class Distance {
+
+	private $lat;
+	private $lon;
+
+
+	function __construct(){
+		$this->lat = isset($_POST['latitude']) ? $_POST['latitude'] : null;
+		$this->lon = isset($_POST['longitude']) ? $_POST['longitude'] : null;
+	}
+
+	function submitted(){
+		if(empty($this->lat) || empty($this->lon)){
+			throw new Exception("Where are the coordinates?");
+		}else{
+			$latlon = array($this->lat, $this->lon);
+
+			$cities = $this->data();
+
+			$distances = array_map(function($cities) use($latlon) {
+			    $a = array_slice($cities, -3);
+			    echo "<pre>";
+				print_r($a);
+				echo "<pre>";
+			    // return $this->distance($a, $latlon);
+			}, $cities);
+
+			// asort($distances);
+
+			// $top_five_cities = array_slice($cities[key($distances)], 0, 5, true);
+
+			// echo "<pre>";
+			// print_r($cities);
+			// echo "<pre>";
+
+			// echo "</br></br>";
+			// echo 'Closest cities are: ';
+			// echo "<pre>";
+			// print_r($cities[key($distances)]);
+			// echo "<pre>";
+
+		}
+	}
+
+	public function data(){
+		$list_of_cities = array();
+		$file_path = fopen('data/US.txt','r');
+
+		if (($headers = fgetcsv($file_path, 0, "\t")) !== FALSE){
+			if($headers){
+				while(($line = fgetcsv($file_path, 0, "\t")) !== FALSE){
+					if ($line){
+						if(sizeof($line)==sizeof($headers)){
+							$list_of_cities[] = array_combine($headers, $line);
+						}
+					}
+				}
+			}
+		}
+
+		fclose($file_path);
+
+		return $list_of_cities;
+	}
+
+	public function distance($a, $b){
+	    list($lat1, $lon1) = $a;
+	    list($lat2, $lon2) = $b;
+
+	    $theta = $lon1 - $lon2;
+	 //    echo "<pre>";
+		// print_r($theta);
+		// echo "</pre>";
+	    $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+	    $dist = acos($dist);
+	    $dist = rad2deg($dist);
+	    $miles = $dist * 60 * 1.1515;
+	    return $miles;
+	}
+
+
 
 	/**
 	* Calculates the great-circle distance between two points, with
@@ -34,37 +108,7 @@ class Distance {
 		return $angle * $earthRadius;
 	}
 
-
-	//$ref = array(49.648881, -103.575312);
-
 	
-
-	// $items = array(
-	//     '0' => array('item1','otheritem1details....','55.645645','-42.5323'),
-	//     '1' => array('item1','otheritem1details....','100.645645','-402.5323')
-	// );
-
-	// $distances = array_map(function($item) use($ref) {
-	//     $a = array_slice($item, -2);
-	//     return distance($a, $ref);
-	// }, $items);
-
-	// asort($distances);
-
-	// echo 'Closest item is: ', var_dump($items[key($distances)]);
-
-
-	public function distance($a, $b){
-	    list($lat1, $lon1) = $a;
-	    list($lat2, $lon2) = $b;
-
-	    $theta = $lon1 - $lon2;
-	    $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
-	    $dist = acos($dist);
-	    $dist = rad2deg($dist);
-	    $miles = $dist * 60 * 1.1515;
-	    return $miles;
-	}
 
 }
 

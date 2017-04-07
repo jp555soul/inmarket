@@ -1,5 +1,5 @@
 <?php 
-  require_once('service/haversineDistance.php');
+  include 'service/haversineDistance.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,8 +13,8 @@
 </head>
 <body>
 	<?php
-		$latFrom = 33.9902714;
-		$lonFrom = -118.4225772;
+		$latFrom = 34.05223;	
+		$lonFrom = -118.24368;
 
 		if(isset($_POST['submit'])){ 
 			if(!is_numeric($_POST['latitude']) || !is_numeric($_POST['longitude'])){
@@ -27,7 +27,10 @@
 		    	echo "<br>Latitude: $lat"; 
 		    	echo "<br>Longitude: $lon"; 
 
-		    	$search = new Distance($lat, $lon);
+		    	$search = new Distance();
+		    	$search->submitted();
+
+
 
 			} 
 		}
