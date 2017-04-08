@@ -13,8 +13,8 @@
 </head>
 <body>
 	<?php
-		$latFrom = 34.05223;	
-		$lonFrom = -118.24368;
+		$latFrom = 33.99026;	
+		$lonFrom = -118.420375;
 
 		if(isset($_POST['submit'])){ 
 			if(!is_numeric($_POST['latitude']) || !is_numeric($_POST['longitude'])){
@@ -23,23 +23,20 @@
 				$lat = $_POST['latitude'];
 				$lon = $_POST['longitude'];
 
-				echo "User Has submitted the form and entered these coordinates:";
-		    	echo "<br>Latitude: $lat"; 
-		    	echo "<br>Longitude: $lon"; 
+				// echo "User Has submitted the form and entered these coordinates:";
+		  //   	echo "<br>Latitude: $lat"; 
+		  //   	echo "<br>Longitude: $lon"; 
 
 		    	$search = new Distance();
 		    	$search->submitted();
-
-
-
 			} 
 		}
 
 	?>
 
   <form id="location-search" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-    <span>Lat</span><input type="text" name="latitude" value="" />
-	<span>Lon</span><input type="text" name="longitude" value=""/>
+    <span>Lat</span><input type="text" name="latitude" value="33.99026" />
+	<span>Lon</span><input type="text" name="longitude" value="-118.420375"/>
     <input type="submit" name="submit" value="Retrieve closest city" />
   </form>
   <script>
