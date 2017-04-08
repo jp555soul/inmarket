@@ -37,7 +37,7 @@ class Distance {
 			echo 'Closest cities are: ';
 			
 			echo "<pre>";
-			print_r($distances[13481]);
+			print_r($distances);
 			echo "</pre>";
 			echo "<pre>";
 			print_r($cities[key($distances)]);
