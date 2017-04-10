@@ -24,6 +24,7 @@
 </head>
 <body>
     <div class="container">
+    	<div class="logo"><img class="center-block" src="images/inmarket-logo.png" /></div>
     	<div class="row">
 			<form id="location-search" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 				<span>Latitude:</span><input type="text" name="latitude" value="33.99026" />
