@@ -1,5 +1,5 @@
 <?php 
-  include 'service/haversineDistance.php';
+  include 'service/pythagoreanDistance.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

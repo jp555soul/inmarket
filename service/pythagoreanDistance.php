@@ -34,7 +34,7 @@ class Distance {
 
 
 			echo "</br></br>";
-			echo 'Closest cities are: ';
+			echo 'Suggested nearby cities are: ';
 			
 			$limit = 0;
 			foreach($distances as $key => $value){
