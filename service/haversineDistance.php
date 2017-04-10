@@ -36,13 +36,18 @@ class Distance {
 			echo "</br></br>";
 			echo 'Closest cities are: ';
 			
-			echo "<pre>";
-			print_r($distances);
-			echo "</pre>";
-			echo "<pre>";
-			print_r($cities[key($distances)]);
-			echo "</pre>";
+			$limit = 0;
+			foreach($distances as $key => $value){
+				if(++$limit < 20){
+					$city = $value[0][1];
+					$state = $value[0][2];
+					$pop = $value[0][3];
 
+					echo "<ul>";
+					echo "<li>".$city . ' - ' . $state . ' - ' . $pop."</li>";
+					echo "</ul>";
+				}
+			}
 		}
 	}
 
